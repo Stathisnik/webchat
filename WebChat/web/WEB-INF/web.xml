@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1"
+         metadata-complete="true">
+
+    <display-name>Web Chat</display-name>
+    <description>WebChat description</description>
+    
+    <context-param>
+        <!-- This parameter is available to all servlets -->
+        <param-name>textsPath</param-name>
+        <param-value>C:\Users\Nikolas\Documents\NetBeansProjects\WebChat\web\static\\texts.json</param-value>
+    </context-param>
+    
+    <context-param>        
+        <param-name>jdbcURL</param-name>
+        <param-value>jdbc:mysql://localhost:3306/chat?serverTimezone=UTC&amp;characterEncoding=utf8&amp;autoReconnect=true</param-value>
+    </context-param>
+    
+    <context-param>        
+        <param-name>jdbcUser</param-name>
+        <param-value>messAdmin</param-value>
+    </context-param>
+    
+    <context-param>        
+        <param-name>jdbcPass</param-name>
+        <param-value>Admin1234</param-value>
+    </context-param>
+         
+    <servlet>
+        <!-- Login Servlet -->
+        <servlet-name>login</servlet-name>
+        <servlet-class>gr.webchat.web.messenger.controller.LoginServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <!-- Logout Servlet -->
+        <servlet-name>logout</servlet-name>
+        <servlet-class>gr.webchat.web.messenger.controller.LogoutServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <!-- Messages Servlet -->
+        <servlet-name>messages</servlet-name>
+        <servlet-class>gr.webchat.web.messenger.controller.MessageListServlet</servlet-class>
+        <init-param>
+            <!-- This param is available only to the messages servlet -->
+            <param-name>textsPath</param-name>
+            <param-value>C:\Users\Nikolas\Documents\NetBeansProjects\WebChat\web\static\\texts.json</param-value>
+        </init-param>
+    </servlet>
+        
+    <!-- //////////////////// -->
+    <!-- Servlet URL Mappings -->
+    <!-- //////////////////// -->
+
+    <servlet-mapping>
+        <servlet-name>hello</servlet-name>
+        <url-pattern>/hello.txt</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>echo</servlet-name>
+        <url-pattern>/texts/echo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/messenger/login.html</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/messenger/logout.html</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>messages</servlet-name>
+        <url-pattern>/messenger/messages.html</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>org.afdemp.cb6.web.messenger.MessengerContextListener</listener-class>
+    </listener>
+
+</web-app>
